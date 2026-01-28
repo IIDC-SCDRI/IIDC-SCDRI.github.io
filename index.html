@@ -18,7 +18,10 @@
             line-height: 1.5;
             -webkit-font-smoothing: antialiased; /* 让字体在Mac上显示更清晰 */
         }
-
+header {
+    /* ...其他代码... */
+    align-items: center; /* 确保 LOGO 和右边的菜单垂直居中对齐 */
+}
         /* 布局容器 */
         .container {
             max-width: 1200px; /* 宽度加宽，更现代 */
@@ -35,20 +38,21 @@
             /* 这里的边框去掉了，更像开放空间 */
         }
 /* --- 新增 LOGO 样式 --- */
-        .logo-building {
-            /* 使用最粗的 Helvetica，像重型H钢或混凝土块 */
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-weight: 900; /* 900 是最粗的字重 */
-            font-size: 32px; /* LOGO 总大小 */
-            line-height: 0.8; /* 极小的行高，让上下两层紧紧压在一起 */
-            letter-spacing: -2px; /* 负字间距，让左右字母互相挤压粘连 */
-            color: #1a1a1a; /* 深灰色建筑质感 */
-            display: inline-block; /* 让它像一个整体模块 */
-            text-transform: uppercase;
-        }
-        
-        /* 去掉链接默认的下划线，保持建筑的干净 */
-        .logo-building a {
+       <div class="logo-svg-container">
+            <a href="index.html">
+                <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="#1a1a1a">
+                        <rect x="0" y="0" width="20" height="45" />
+                        
+                        <rect x="30" y="0" width="20" height="45" />
+                        
+                        <path d="M0 55 H45 V100 H0 V55 Z M20 75 H25 V80 H20 V75 Z" />
+                        
+                        <polygon points="55,55 100,55 100,75 75,75 75,80 100,80 100,100 55,100" />
+                    </g>
+                </svg>
+            </a>
+        </div>
             text-decoration: none;
             color: inherit;
         }
@@ -255,3 +259,4 @@
 </body>
 
 </html>
+
