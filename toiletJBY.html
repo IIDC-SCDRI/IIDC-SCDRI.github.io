@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT 04 - 茭白园路公厕</title>
+    <style>
+        /* 复用之前的核心风格，保持品牌一致性 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 顶部导航 - 增加了“返回首页”的功能 */
+        header {
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: #1a1a1a;
+            text-transform: uppercase;
+        }
+
+        /* 详情页专属布局 */
+        .project-header {
+            padding: 100px 0 60px 0;
+            border-bottom: 2px solid #1a1a1a; /* 一条粗线分割 */
+            margin-bottom: 60px;
+        }
+
+        .project-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 四列数据 */
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        /* 核心内容区：左文右图，或者上文下图 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* 左边占1份，右边占2份 */
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .text-column {
+            position: sticky; /* (可选) 让文字在滚动时稍微粘滞一下 */
+            top: 40px;
+            height: fit-content;
+        }
+
+        .text-column p {
+            margin-bottom: 20px;
+            text-align: justify; /* 两端对齐，像报纸 */
+        }
+
+        .image-column img {
+            width: 100%;
+            margin-bottom: 60px; /* 图片之间的距离 */
+            display: block;
+            filter: grayscale(0%); /* 详情页直接看彩图，不用黑白了 */
+        }
+        
+        /* 页脚 */
+        .footer-nav {
+            padding: 60px 0;
+            border-top: 1px solid #ccc;
+            text-align: center;
+        }
+        
+        .footer-nav a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo"><a href="index.html">IIDC.</a></div>
+        </header>
+
+        <section class="project-header">
+            <h1 class="project-title"><p>竹影清轩</p>茭白园路公共卫生间改造设计</h1>
+            <div class="project-stats">
+                <span>LOCATION: SHANGHAI</span>
+                <span>YEAR: 2026</span>
+                <span>AREA: 62.8 ㎡</span>
+                <span>TYPE: PUBLIC</span>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            
+            <div class="text-column">
+                <h3>Design Concept</h3>
+                <p>这套公厕设计展现了一种“未来主义模块化”的商业设计风格。</p>
+<p>这种风格旨在通过高度工业化、标准化的外观，结合科技感与人文关怀，打破传统公厕“脏乱差”的刻板印象，将其转化为城市街道上的“科技微枢纽”。</p>
+<p>
+以“流线型·科技亲和”为设计愿景，旨在通过柔和包容的生物科技美学，重塑建筑与使用者的交互体验。设计摒弃了传统体量的生硬棱角，转而采用倒圆角的流线形态与内凹曲面的入口引导，消解了建筑的物理边界，呈现出宛如精密消费电子产品般的圆润触感与未来气韵。在材质表达上，洁净的哑光白铝板与UHPC构筑了高度一体化的视觉纯度，而局部穿孔金属板的介入，则在兼顾通风与隐私的同时，于夜幕下通过内透光影赋予建筑富有韵律的“呼吸感”。配合沿曲面轮廓蜿蜒的线性LED暖光，设计在消解金属材质冷峻特质的同时，成功构建出一处兼具科技理性与人文温度的公共空间。</p>
+            </div>
+
+            <div class="image-column">
+                <img src="images/JBY/JBY02.png" alt="效果图">
+                
+                <img src="images/JBY/JBY-PLAN.png" alt="平面">
+                
+                <img src="images/JBY/JBY-MASS.png" alt="体块推敲">
+            </div>
+
+        </section>
+
+        <div class="footer-nav">
+            <a href="index.html">← Back to Projects</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
