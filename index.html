@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY ARCHITECTS</title>
+    <style>
+        /* --- 风格定义：瑞士理性主义 --- */
+        
+        body {
+            margin: 0;
+            padding: 0;
+            /* 1C: 混凝土灰背景 */
+            background-color: #f2f2f2; 
+            /* 2B: 绝对现代无衬线字体，不仅是Arial，更强调Helvetica的冷峻 */
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #1a1a1a; /* 接近黑色的深灰，比纯黑更有质感 */
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased; /* 让字体在Mac上显示更清晰 */
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: 1200px; /* 宽度加宽，更现代 */
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 顶部导航 */
+        header {
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* 这里的边框去掉了，更像开放空间 */
+        }
+
+        .logo {
+            font-weight: 900; /* 极粗 */
+            font-size: 20px;
+            letter-spacing: -0.5px; /* 字母挤得紧一点，显得紧凑有力 */
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 40px;
+        }
+
+        /* 3A: 留白式 Hero 区域 */
+        .hero {
+            padding-top: 150px;
+            padding-bottom: 150px;
+            max-width: 800px; /* 限制文字宽度，不铺满，留出呼吸感 */
+        }
+
+        .hero h1 {
+            font-size: 64px; /* 巨大 */
+            line-height: 1.1;
+            margin: 0 0 30px 0;
+            font-weight: 700;
+            letter-spacing: -2px; /* 紧缩字距，瑞士风格标志 */
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666; /* 次级灰色 */
+            max-width: 480px;
+            margin: 0;
+        }
+
+        /* 作品展示：网格系统 */
+        .project-list {
+            padding-bottom: 100px;
+            display: grid;
+            /* 这里用了 Grid 布局：两列，左边一列，右边一列 */
+            grid-template-columns: 1fr 1fr; 
+            gap: 60px; /* 项目之间的间隙 */
+        }
+
+        .project-item {
+            position: relative;
+            margin-bottom: 80px;
+        }
+
+        /* 让第二列的项目往下错位一点，制造“由于重力下坠”的错落感 */
+        .project-item:nth-child(even) {
+            margin-top: 100px; 
+        }
+
+        .project-image-wrapper {
+            overflow: hidden; /* 必须限制溢出，不然图片放大时会盖住别的 */
+        }
+
+        .project-image {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%) contrast(90%); /* 默认黑白且降低一点对比度，像混凝土 */
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); /* 高级缓动曲线 */
+            transform: scale(1.0);
+        }
+
+        /* 交互升级：鼠标悬停时，图片不仅变色，还微微放大 */
+        .project-item:hover .project-image {
+            filter: grayscale(0%) contrast(100%);
+            transform: scale(1.03);
+        }
+
+        .project-info {
+            margin-top: 20px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .project-meta {
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+            display: block;
+        }
+
+        footer {
+            border-top: 2px solid #1a1a1a; /* 粗线条收尾 */
+            padding: 60px 0;
+            font-size: 14px;
+            font-weight: 700;
+        }
+/* --- 移动端适配补丁 (Mobile Responsiveness) --- */
+        @media screen and (max-width: 768px) {
+            /* 1. 让容器变窄，留白变小 */
+            .container {
+                padding: 0 20px;
+            }
+            
+            /* 2. 首页 Hero 字体变小，防止换行太丑 */
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            /* 3. 作品列表：强制变成单列 */
+            .project-list {
+                grid-template-columns: 1fr; /* 1列 */
+                gap: 60px;
+            }
+            
+            /* 4. 取消错位效果，手机上整齐排列更好看 */
+            .project-item:nth-child(even) {
+                margin-top: 0;
+            }
+            
+            /* 5. 详情页布局也变成单列 */
+            .content-grid, .project-stats {
+                grid-template-columns: 1fr; /* 强制单列 */
+                gap: 40px;
+            }
+            
+            .text-column {
+                position: static; /* 取消粘滞效果 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo">智能创新设计中心.</div>
+            <nav class="nav-links">
+                <a href="#">WORK</a>
+                <a href="#">STUDIO</a>
+                <a href="#">CONTACT</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>FORM FOLLOWS<br>FICTION.</h1>
+            <p>我们不仅建造空间，更是在构建关于未来的叙事。在这里，混凝土与光线是唯一的语言。</p>
+        </section>
+
+        <section class="project-list">
+            
+            <div class="project-item">
+                <div class="project-image-wrapper">
+<a href="apartment.html">
+                    <img src="images/DU2.PNG" class="project-image" alt="Project 1">
+</a>
+                </div>
+                <div class="project-info">
+                    <span class="project-title">都江堰海派公寓设计</span>
+                    <span class="project-meta">Residential / 2025</span>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-image-wrapper">
+<a href="museum.html">
+                    <img src="images/MUSEUM2.PNG" class="project-image" alt="Project 2">
+</a>
+                </div>
+                <div class="project-info">
+                    <span class="project-title">"奉贤烈士纪念馆视频制作"</span>
+                    <span class="project-meta">Cultrual / 2025</span>
+                </div>
+            </div>
+
+<div class="project-item">
+    <div class="project-image-wrapper">
+      <a href="toilet.html">
+        <img src="images/MODEL.PNG" class="project-image" alt="Project 3">
+        </a>
+    </div>
+    <div class="project-info">
+        <span class="project-title">"复兴岛公共卫生间改造设计"</span>
+        <span class="project-meta">Public / 2026</span>
+    </div>
+</div>
+
+        </section>
+
+        <footer>
+            &copy; 2026 智能创新设计中心.
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT 01 - MY ARCHITECTS</title>
+    <style>
+        /* 复用之前的核心风格，保持品牌一致性 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; 
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 顶部导航 - 增加了“返回首页”的功能 */
+        header {
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: #1a1a1a;
+            text-transform: uppercase;
+        }
+
+        /* 详情页专属布局 */
+        .project-header {
+            padding: 100px 0 60px 0;
+            border-bottom: 2px solid #1a1a1a; /* 一条粗线分割 */
+            margin-bottom: 60px;
+        }
+
+        .project-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .project-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 四列数据 */
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-top: 40px;
+        }
+
+        /* 核心内容区：左文右图，或者上文下图 */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* 左边占1份，右边占2份 */
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .text-column {
+            position: sticky; /* (可选) 让文字在滚动时稍微粘滞一下 */
+            top: 40px;
+            height: fit-content;
+        }
+
+        .text-column p {
+            margin-bottom: 20px;
+            text-align: justify; /* 两端对齐，像报纸 */
+        }
+
+        .image-column img {
+            width: 100%;
+            margin-bottom: 60px; /* 图片之间的距离 */
+            display: block;
+            filter: grayscale(0%); /* 详情页直接看彩图，不用黑白了 */
+        }
+        
+        /* 页脚 */
+        .footer-nav {
+            padding: 60px 0;
+            border-top: 1px solid #ccc;
+            text-align: center;
+        }
+        
+        .footer-nav a {
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="logo"><a href="index.html">My Architects.</a></div>
+        </header>
+
+        <section class="project-header">
+            <h1 class="project-title">THE CONCRETE VOID</h1>
+            <div class="project-stats">
+                <span>LOCATION: TOKYO</span>
+                <span>YEAR: 2025</span>
+                <span>AREA: 450 SQM</span>
+                <span>TYPE: RESIDENTIAL</span>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            
+            <div class="text-column">
+                <h3>Design Concept</h3>
+                <p>这里写你的设计说明。Designed to embrace the silence of the site, the structure uses raw concrete to frame the changing light throughout the day.</p>
+                <p>The internal void acts as a lung for the house, allowing natural ventilation and visual connection between floors.</p>
+                <p>这里可以多写几段，介绍材质、光影、或者某种特殊的结构技术。</p>
+            </div>
+
+            <div class="image-column">
+                <img src="images/project1.jpg" alt="Main View">
+                
+                <img src="images/project1.jpg" alt="Plan">
+                
+                <img src="images/project1.jpg" alt="Detail">
+            </div>
+
+        </section>
+
+        <div class="footer-nav">
+            <a href="index.html">← Back to Projects</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
