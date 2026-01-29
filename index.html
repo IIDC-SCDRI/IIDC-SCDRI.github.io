@@ -5,232 +5,498 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IIDC ARCHITECTS</title>
     <style>
-        /* --- 核心风格定义：瑞士理性主义 --- */
+        /* --- 0. 全局变量与基础设置 --- */
+        :root { 
+            --primary-blue: #002FA7; 
+            --primary-red: #FF2E00; 
+            --concrete: #f2f2f2;
+            --ink: #1a1a1a;
+        }
+        
         body {
-            margin: 0;
-            padding: 0;
-            background-color: #f2f2f2; /* 混凝土灰背景 */
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* 绝对现代无衬线字体 */
-            color: #1a1a1a; /* 深灰文字 */
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
+            margin: 0; padding: 0;
+            background-color: var(--concrete); 
+            /* 极淡的工程蓝图网格 - 优化了透明度，更细腻 */
+            background-image: linear-gradient(rgba(26, 26, 26, 0.03) 1px, transparent 1px), 
+                              linear-gradient(90deg, rgba(26, 26, 26, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px; 
+            background-position: center top;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--ink); 
+            line-height: 1.5; 
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
         }
 
-        /* 布局容器 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+        /* --- 1. Header & Navigation --- */
+        header { height: 140px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--ink); 
+            font-size: 14px; 
+            font-weight: 700; 
+            margin-left: 40px; 
+            letter-spacing: 0.5px; 
+            position: relative;
+            transition: color 0.3s ease; 
+        }
+        
+        /* 导航悬停微交互：瑞士风格通常只有简单的变色或下划线 */
+        .nav-links a:hover { color: var(--primary-red); }
+
+        /* --- 2. LOGO 核心交互系统 (升级版) --- */
+        @keyframes ethereal-breath {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .logo-svg-container { 
+            animation: ethereal-breath 6s ease-in-out infinite; 
+            will-change: transform; 
+            /* 鼠标放上去时，停止漂浮，显得更稳重，专注展示渐变 */
+            cursor: pointer;
+        }
+        .logo-svg-container:hover {
+            animation-play-state: paused;
         }
 
-        /* 顶部导航栏 */
-        header {
-            height: 100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center; /* 确保 LOGO 和菜单垂直居中 */
+        /* 双层叠加逻辑 */
+        .logo-base { opacity: 1; transition: opacity 0.4s ease; }
+        .logo-gradient { opacity: 0; transition: opacity 0.4s ease; }
+        
+        /* Hover 触发：底层变淡(可选)，顶层显现 */
+        .logo-svg-container:hover .logo-gradient { opacity: 1; }
+
+        /* --- 3. Hero Section (瑞士理性主义排版) --- */
+        .hero { 
+            min-height: 75vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            position: relative; 
+            margin-bottom: 60px;
+        }
+        
+        .hero h1 { 
+            font-size: 82px; /* 更大的字号以增强冲击力 */
+            line-height: 0.95; 
+            margin: 0 0 40px 0; 
+            font-weight: 700; 
+            letter-spacing: -3px; /* 极紧凑的字间距 */
+            text-transform: uppercase; 
+            position: relative; 
+            padding-left: 40px; 
+        }
+        
+        /* 左侧装饰条：上红下蓝，硬切边 */
+        .hero h1::before { 
+            content: ""; 
+            position: absolute; 
+            left: 0; 
+            top: 6px; 
+            bottom: 8px; /* 视觉上对齐文字高度 */
+            width: 14px; 
+            background: linear-gradient(to bottom, var(--primary-red) 50%, var(--primary-blue) 50%); 
+        }
+        
+        .hero p { 
+            font-size: 16px; 
+            color: #555; 
+            max-width: 480px; 
+            margin: 0; 
+            font-weight: 400;
+            margin-left: 40px; /* 与标题文字对齐 */
+        }
+        
+        /* 下滑箭头 */
+        .scroll-indicator { 
+            position: absolute; 
+            bottom: 20px; 
+            left: 40px; /* 与内容左对齐 */
+            animation: bounce 2s infinite; 
+            opacity: 1; 
+        }
+        @keyframes bounce { 
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
+            40% {transform: translateY(-10px);} 
+            60% {transform: translateY(-5px);} 
         }
 
-        /* 导航链接样式 */
-        .nav-links a {
-            text-decoration: none;
-            color: #1a1a1a;
-            font-size: 14px;
-            font-weight: 700;
-            margin-left: 40px;
+        /* --- 4. 作品列表 & 滚动动画 --- */
+        .project-list { 
+            padding-bottom: 120px; 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 80px 60px; 
+            margin-top: 50px; 
+        }
+        
+        .project-item { 
+            opacity: 0; 
+            transform: translateY(80px); 
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+        }
+        
+        /* 显形状态 */
+        .project-item.visible { opacity: 1; transform: translateY(0); }
+
+        /* 错落布局：偶数项下沉 */
+        .project-item:nth-child(even) { margin-top: 120px; }
+
+        .project-image-wrapper { 
+            overflow: hidden; 
+            background: #e0e0e0; /* 图片加载前的占位色 */
+            position: relative;
+        }
+        
+        /* 图片交互：灰度->彩色，轻微放大 */
+        .project-image { 
+            width: 100%; 
+            display: block; 
+            filter: grayscale(100%) contrast(95%); 
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            transform: scale(1.0); 
+            backface-visibility: hidden; /* 防止缩放抖动 */
+        }
+        
+        .project-item:hover .project-image { 
+            filter: grayscale(0%) contrast(105%); 
+            transform: scale(1.03); 
+        }
+        
+        .project-info { margin-top: 24px; border-top: 2px solid transparent; transition: border-color 0.3s; }
+        .project-item:hover .project-info { border-top-color: var(--ink); } /* 鼠标悬停时顶部出现黑线 */
+
+        .project-title { 
+            font-size: 20px; 
+            font-weight: 700; 
+            display: block; 
+            text-transform: uppercase; 
+            margin-top: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .project-meta { 
+            color: var(--primary-blue); 
+            font-weight: 700; 
+            margin-top: 6px; 
+            display: block; 
+            font-size: 13px; 
             letter-spacing: 0.5px;
         }
 
-        /* Hero 区域 (大标题) */
-        .hero {
-            padding-top: 150px;
-            padding-bottom: 150px;
-            max-width: 800px;
+        /* --- 5. Footer --- */
+        footer { 
+            padding: 80px 0; 
+            font-size: 12px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            position: relative; 
         }
-
-        .hero h1 {
-            font-size: 64px;
-            line-height: 1.1;
-            margin: 0 0 30px 0;
-            font-weight: 700;
-            letter-spacing: -2px;
-            text-transform: uppercase;
+        footer::before { 
+            content: ""; 
+            position: absolute; 
+            top: 0; left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: linear-gradient(to right, var(--primary-red), var(--primary-blue)); 
         }
+        
+        ::selection { background-color: var(--primary-red); color: #fff; }
 
-        .hero p {
-            font-size: 18px;
-            color: #666;
-            max-width: 520px; /* 稍微调宽了一点 */
-            margin: 0;
+        /* --- Responsive --- */
+        @media screen and (max-width: 768px) { 
+            .container { padding: 0 24px; } 
+            header { height: 100px; }
+            .nav-links { display: none; /* 暂时隐藏桌面导航，后续建议做汉堡菜单 */ } 
+            
+            .hero h1 { font-size: 48px; letter-spacing: -2px; padding-left: 24px; }
+            .hero h1::before { width: 8px; }
+            .hero p { margin-left: 24px; font-size: 14px; }
+            .scroll-indicator { left: 24px; }
+
+            .project-list { grid-template-columns: 1fr; gap: 60px; } 
+            .project-item:nth-child(even) { margin-top: 0; } 
         }
+/* === 插入在 <style> 标签末尾 === */
 
-        /* --- 作品展示列表 --- */
-        .project-list {
-            padding-bottom: 100px;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* 双列布局 */
-            gap: 60px;
-        }
+/* 1. 菜单触发按钮 (默认隐藏，仅移动端显示) */
+.menu-toggle {
+    display: none; /* 桌面端隐藏 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* 保证在最顶层 */
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+}
 
-        .project-item {
-            position: relative;
-            margin-bottom: 80px;
-        }
+.menu-text {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--ink);
+    transition: color 0.3s ease;
+}
 
-        /* 错位效果：让偶数项下沉 */
-        .project-item:nth-child(even) {
-            margin-top: 100px; 
-        }
+/* 瑞士风格的几何汉堡图标 */
+.hamburger-icon {
+    width: 24px;
+    height: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-        .project-image-wrapper {
-            overflow: hidden;
-        }
+.hamburger-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--ink);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 经典的缓冲曲线 */
+    transform-origin: left;
+}
 
-        .project-image {
-            width: 100%;
-            display: block;
-            filter: grayscale(100%) contrast(90%); /* 默认黑白 */
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); /* 平滑过渡 */
-            transform: scale(1.0);
-        }
+/* 2. 全屏覆盖层 (Overlay) */
+.mobile-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: var(--primary-red);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+    transform: translateX(100%); /* 默认移出屏幕 */
+    transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1); /* 极速切入 */
+}
 
-        /* 鼠标悬停交互 */
-        .project-item:hover .project-image {
-            filter: grayscale(0%) contrast(100%); /* 变彩色 */
-            transform: scale(1.03); /* 缓慢放大 */
-        }
+/* 3. 菜单内的大号字体 (Super-graphics) */
+.mobile-link {
+    display: block;
+    font-size: 56px; /* 巨大字号 */
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s, transform 0.4s;
+    transition-delay: calc(0.1s * var(--i)); /* 阶梯式延迟出现 */
+}
 
-        .project-info {
-            margin-top: 20px;
-        }
+.mobile-footer {
+    position: absolute;
+    bottom: 40px;
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.4s 0.6s;
+}
 
-        .project-title {
-            font-size: 18px;
-            font-weight: 700;
-            display: block;
-            text-transform: uppercase;
-        }
+/* === 激活状态 (Open State) === */
+body.menu-open { overflow: hidden; } /* 禁止背景滚动 */
 
-        .project-meta {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-            display: block;
-        }
+body.menu-open .mobile-overlay {
+    transform: translateX(0);
+}
 
-        /* 页脚 */
-        footer {
-            border-top: 2px solid #1a1a1a;
-            padding: 60px 0;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
+body.menu-open .mobile-link {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        /* --- 移动端适配 (必须放在最后) --- */
-        @media screen and (max-width: 768px) {
-            .container { padding: 0 20px; }
-            .hero h1 { font-size: 42px; }
-            /* 手机上强制变单列 */
-            .project-list { grid-template-columns: 1fr; gap: 60px; }
-            /* 取消错位 */
-            .project-item:nth-child(even) { margin-top: 0; }
-        }
+body.menu-open .mobile-footer {
+    opacity: 1;
+}
 
+/* 按钮变色与变形 */
+body.menu-open .menu-text { color: #fff; }
+body.menu-open .hamburger-icon span { background-color: #fff; }
+
+/* 将三条线变为 X */
+body.menu-open .hamburger-icon span:nth-child(1) {
+    transform: rotate(45deg) translate(2px, -2px);
+    width: 26px;
+}
+body.menu-open .hamburger-icon span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+body.menu-open .hamburger-icon span:nth-child(3) {
+    transform: rotate(-45deg) translate(2px, 2px);
+    width: 26px;
+}
+
+/* === 响应式触发 === */
+@media screen and (max-width: 768px) {
+    .nav-links { display: none; } /* 隐藏原有导航 */
+    .menu-toggle { display: flex; } /* 显示汉堡按钮 */
+}
     </style>
-
 </head>
 <body>
-
     <div class="container">
-        
         <header>
-         <div class="logo-svg-container">
-    <a href="index.html">
-        <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g fill="#1a1a1a">
-                <rect x="0" y="0" width="20" height="46" />
-                <rect x="28" y="0" width="24" height="46" />
-                
-                <path d="M0 54 H46 V100 H0 V82 H24 V72 H0 V54 Z M06 72 V82 H16 V72 H10 Z" />
-                
-                <polygon points="54,54 100,54 100,72 78,72 78,82 100,82 100,100 54,100"/>
-            </g>
-        </svg>
-    </a>
-</div>
+            <div class="logo-svg-container">
+                <a href="index.html" aria-label="Home">
+                    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="fluid-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF2E00; stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#002FA7; stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <g class="logo-base" fill="#1a1a1a">
+                            <rect x="0" y="0" width="20.5" height="46" />
+                            <rect x="28" y="0" width="24" height="46" />
+                            <path d="M0 54 H46 V100 H0 V82 H24 V72 H0 V54 Z M08 72 V82 H17 V72 H10 Z" />
+                            <polygon points="54,54 100,54 100,72 78,72 78,82 100,82 100,100 54,100"/>
+                        </g>
 
+                        <g class="logo-gradient" fill="url(#fluid-gradient)">
+                            <rect x="0" y="0" width="20.5" height="46" />
+                            <rect x="28" y="0" width="24" height="46" />
+                            <path d="M0 54 H46 V100 H0 V82 H24 V72 H0 V54 Z M08 72 V82 H17 V72 H10 Z" />
+                            <polygon points="54,54 100,54 100,72 78,72 78,82 100,82 100,100 54,100"/>
+                        </g>
+                    </svg>
+                </a>
+            </div>
             <nav class="nav-links">
-                <a href="#">WORK</a>
-                <a href="#">STUDIO</a>
-                <a href="#">CONTACT</a>
+<button class="menu-toggle" aria-label="Toggle Menu">
+    <span class="menu-text">MENU</span>
+    <div class="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</button>
+
+<div class="mobile-overlay">
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-link" style="--i:1;">WORK</a>
+        <a href="#" class="mobile-link" style="--i:2;">STUDIO</a>
+        <a href="#" class="mobile-link" style="--i:3;">TUTORIAL</a>
+        <a href="#" class="mobile-link" style="--i:4;">CONTACT</a>
+    </nav>
+    <div class="mobile-footer">
+        IIDC ARCHITECTS<br>EST. 2026
+    </div>
+</div>
+                <a href="#">Work</a>
+                <a href="#">Studio</a>
+                <a href="#">Tutorial</a>
+                <a href="#">Contact</a>
             </nav>
         </header>
 
         <section class="hero">
-            <h1>HUMAN VISION.<br>DIGITAL MIND.</h1>
+            <h1>Human Vision.<br>Digital Mind.</h1>
             <p>当人工智能成为我们的左手，我们将繁琐的逻辑交付给数字思维，只保留对光影、情感与生活的极致敏锐。</p>
+            <div class="scroll-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19" stroke="#FF2E00" stroke-width="2" stroke-linecap="square"/>
+                    <path d="M19 12L12 19L5 12" stroke="#FF2E00" stroke-width="2" stroke-linecap="square"/>
+                </svg>
+            </div>
         </section>
 
         <section class="project-list">
-            
             <div class="project-item">
                 <div class="project-image-wrapper">
-<a href="apartment.html">
-                    <img src="images/DU2.png" class="project-image" alt="Project 1">
-</a>
+                    <a href="apartment.html"><img src="images/DU2.png" class="project-image" alt="都江堰海派公寓设计"></a>
                 </div>
                 <div class="project-info">
-                    <span class="project-title">“都江堰海派公寓设计”</span>
+                    <span class="project-title">都江堰海派公寓</span>
                     <span class="project-meta">Residential / 2025</span>
                 </div>
             </div>
 
             <div class="project-item">
                 <div class="project-image-wrapper">
-<a href="museum.html">
-                    <img src="images/MUSEUM2.png" class="project-image" alt="Project 2">
-</a>
+                    <a href="museum.html"><img src="images/MUSEUM2.png" class="project-image" alt="奉贤烈士纪念馆"></a>
                 </div>
                 <div class="project-info">
-                    <span class="project-title">"奉贤烈士纪念馆视频制作"</span>
-                    <span class="project-meta">Cultrual / 2025</span>
+                    <span class="project-title">奉贤烈士纪念馆视频</span>
+                    <span class="project-meta">Cultural / 2025</span>
                 </div>
             </div>
 
-<div class="project-item">
-    <div class="project-image-wrapper">
-      <a href="toiletFXD.html">
-        <img src="images/MODEL.png" class="project-image" alt="Project 3">
-        </a>
-    </div>
-    <div class="project-info">
-        <span class="project-title">"复兴岛公共卫生间改造设计"</span>
-        <span class="project-meta">Public / 2026</span>
-    </div>
-</div>
+            <div class="project-item">
+                <div class="project-image-wrapper">
+                    <a href="toiletFXD.html"><img src="images/MODEL.png" class="project-image" alt="复兴浮仓"></a>
+                </div>
+                <div class="project-info">
+                    <span class="project-title">复兴浮仓 | 杨浦区公共卫生间</span>
+                    <span class="project-meta">Public / 2026</span>
+                </div>
+            </div>
 
+            <div class="project-item">
+                <div class="project-image-wrapper">
+                    <a href="toiletJBY.html"><img src="images/JBY/JBY03.png" class="project-image" alt="竹影清轩"></a>
+                </div>
+                <div class="project-info">
+                    <span class="project-title">竹影清轩 | 杨浦区公共卫生间</span>
+                    <span class="project-meta">Public / 2026</span>
+                </div>
+            </div>
 
-<div class="project-item">
-    <div class="project-image-wrapper">
-      <a href="toiletJBY.html">
-        <img src="images/JBY/JBY03.png" class="project-image" alt="Project 4">
-        </a>
-    </div>
-    <div class="project-info">
-        <span class="project-title">"茭白园路公共卫生间改造设计"</span>
-        <span class="project-meta">Public / 2026</span>
-    </div>
-</div>
+            </section>
 
-
-        </section>
-
-        <footer>
-            &copy; 2026 IIDC ARCHITECTS.
-        </footer>
-
+        <footer>&copy; 2026 IIDC ARCHITECTS.</footer>
     </div>
 
+    <script>
+        // 滚动监听系统 - 保持原有逻辑，优化性能
+        const observerOptions = {
+            threshold: 0.15, // 稍微增加阈值，避免刚露头就触发，体验更自然
+            rootMargin: "0px 0px -50px 0px" // 底部留出一点余量
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // 只要元素进入视口，就添加 visible 类；离开则移除，实现“重复触发”
+                if (entry.isIntersecting) { 
+                    entry.target.classList.add('visible'); 
+                } else { 
+                    entry.target.classList.remove('visible'); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-item').forEach((item) => { 
+            observer.observe(item); 
+        });
+/* === 插入在原有 <script> 内部 === */
+
+// 移动端菜单逻辑
+const menuToggle = document.querySelector('.menu-toggle');
+const body = document.body;
+
+menuToggle.addEventListener('click', () => {
+    body.classList.toggle('menu-open');
+});
+
+// 点击链接后自动关闭菜单（优化体验）
+document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        body.classList.remove('menu-open');
+    });
+});
+    </script>
 </body>
 </html>
